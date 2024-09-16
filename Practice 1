@@ -1,0 +1,166 @@
+1. public class PrintMyName {
+    public static void main(String[] args) {
+        String name = "YourName";
+        int nameLength = name.length();
+        
+        System.out.print("+");
+        for (int i = 0; i < nameLength + 2; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
+        
+        System.out.println("| " + name + " |");
+        
+        System.out.print("+");
+        for (int i = 0; i < nameLength + 2; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
+    }
+}
+
+2.import java.util.Scanner;
+
+public class SquareCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter the side length of the square: ");
+        double side = scanner.nextDouble(); 
+
+        double area = side * side;
+
+        double perimeter = 4 * side;
+
+        double diagonal = side * Math.sqrt(2);
+
+        System.out.println("Area of the square: " + area);
+        System.out.println("Perimeter of the square: " + perimeter);
+        System.out.println("Diagonal of the square: " + diagonal);
+    }
+}
+
+3. import java.util.Scanner;
+
+public class GradeCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter your grade (0-100): ");
+        int grade = scanner.nextInt();  
+
+        String letterGrade;
+
+        if (grade >= 95 && grade <= 100) {
+            letterGrade = "A";
+        } else if (grade >= 90 && grade < 95) {
+            letterGrade = "A-";
+        } else if (grade >= 85 && grade < 90) {
+            letterGrade = "B+";
+        } else if (grade >= 80 && grade < 85) {
+            letterGrade = "B";
+        } else if (grade >= 75 && grade < 80) {
+            letterGrade = "B-";
+        } else if (grade >= 70 && grade < 75) {
+            letterGrade = "C+";
+        } else if (grade >= 65 && grade < 70) {
+            letterGrade = "C";
+        } else if (grade >= 60 && grade < 65) {
+            letterGrade = "C-";
+        } else if (grade >= 55 && grade < 60) {
+            letterGrade = "D+";
+        } else if (grade >= 50 && grade < 55) {
+            letterGrade = "D";
+        } else if (grade >= 0 && grade < 50) {
+            letterGrade = "F";
+        } else {
+            letterGrade = "Invalid grade";
+        }
+
+        System.out.println("Your letter grade is: " + letterGrade);
+    }
+}
+
+4. import java.util.Scanner;
+
+public class QuadraticEquationSolver {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the coefficient a: ");
+        double a = scanner.nextDouble();
+        
+        System.out.print("Enter the coefficient b: ");
+        double b = scanner.nextDouble();
+        
+        System.out.print("Enter the coefficient c: ");
+        double c = scanner.nextDouble();
+
+        double discriminant = b * b - 4 * a * c;
+
+        if (discriminant < 0) {
+            System.out.println("Error: The equation has no real roots. The discriminant (D) is negative.");
+        } else {
+            double denominator = 2 * a;
+            double sqrtDiscriminant = Math.sqrt(discriminant);
+
+            if (discriminant == 0) {
+                double root = -b / denominator;
+                System.out.println("The equation has one real root: " + root);
+            } else {
+                double root1 = (-b + sqrtDiscriminant) / denominator;
+                double root2 = (-b - sqrtDiscriminant) / denominator;
+                System.out.println("The equation has two real roots: " + root1 + " and " + root2);
+            }
+        }
+    }
+}
+
+5. import java.util.Scanner;
+
+public class SavingsAccount {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the initial balance: ");
+        double initialBalance = scanner.nextDouble();
+
+        System.out.print("Enter the interest rate as a percentage");
+        double interestRate = scanner.nextDouble();
+
+        double interestAmount = (interestRate / 100) * initialBalance;
+
+        double newBalance = initialBalance + interestAmount;
+
+        System.out.println("The new balance after adding interest is: " + newBalance);
+    }
+}
+
+6. public class PalindromeChecker {
+    
+    public static boolean isPalindrome(String input) {
+        input = input.toLowerCase();
+        
+        int start = 0;
+        int end = input.length() - 1;
+        
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        
+        return true;
+    }
+    
+    public static void main(String[] args) {
+        String testString = "racecar";
+        if (isPalindrome(testString)) {
+            System.out.println(testString + " is a palindrome.");
+        } else {
+            System.out.println(testString + " is not a palindrome.");
+        }
+    }
+}
