@@ -1,0 +1,131 @@
+1.public class Student {
+    private String name;
+    private String id;
+    private int yearOfStudy;
+
+    public Student(String name, String id) {
+        this.name = name;
+        this.id = id;
+        this.yearOfStudy = 1; // Default year of study is set to 1
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getYearOfStudy() {
+        return yearOfStudy;
+    }
+
+    public void incrementYearOfStudy() {
+        yearOfStudy++;
+    }
+
+    public static void main(String[] args) {
+        Student student = new Student("Adlet", "S12345");
+
+        System.out.println("Name: " + student.getName());
+        System.out.println("ID: " + student.getId());
+        System.out.println("Year of Study: " + student.getYearOfStudy());
+
+        student.incrementYearOfStudy();
+        System.out.println("After incrementing, Year of Study: " + student.getYearOfStudy());
+    }
+}
+
+2. public class StarTriangle {
+    private int height;
+
+    public StarTriangle(int height) {
+        this.height = height;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= height; i++) {
+            for (int j = 0; j < i; j++) {
+                sb.append("[*]");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        StarTriangle triangle = new StarTriangle(3);
+        System.out.println(triangle);
+    }
+}
+
+3. public class Time {
+    private int hour;
+    private int minute;
+    private int second;
+
+    public Time(int hour, int minute, int second) {
+        setTime(hour, minute, second);
+    }
+
+    public void setTime(int hour, int minute, int second) {
+        if (isValidTime(hour, minute, second)) {
+            this.hour = hour;
+            this.minute = minute;
+            this.second = second;
+        } else {
+            throw new IllegalArgumentException("Invalid time values.");
+        }
+    }
+
+    private boolean isValidTime(int hour, int minute, int second) {
+        return hour >= 0 && hour < 24 && minute >= 0 && minute < 60 && second >= 0 && second < 60;
+    }
+
+    public String toUniversalString() {
+        return String.format("%02d:%02d:%02d", hour, minute, second);
+    }
+
+    public String toStandardString() {
+        int displayHour = hour % 12;
+        if (displayHour == 0) displayHour = 12;
+        String ampm = hour < 12 ? "AM" : "PM";
+        return String.format("%02d:%02d:%02d %s", displayHour, minute, second, ampm);
+    }
+
+    public static Time addTimes(Time t1, Time t2) {
+        int totalSeconds = t1.toSeconds() + t2.toSeconds();
+        return fromSeconds(totalSeconds);
+    }
+
+    private int toSeconds() {
+        return hour * 3600 + minute * 60 + second;
+    }
+
+    private static Time fromSeconds(int totalSeconds) {
+        totalSeconds = totalSeconds % 86400; // seconds in a day
+        int hours = totalSeconds / 3600;
+        totalSeconds %= 3600;
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+        return new Time(hours, minutes, seconds);
+    }
+
+    public static void main(String[] args) {
+        Time time1 = new Time(10, 30, 45);
+        Time time2 = new Time(5, 15, 30);
+
+        System.out.println("Time 1 Universal: " + time1.toUniversalString());
+        System.out.println("Time 1 Standard: " + time1.toStandardString());
+
+        System.out.println("Time 2 Universal: " + time2.toUniversalString());
+        System.out.println("Time 2 Standard: " + time2.toStandardString());
+
+        Time result = Time.addTimes(time1, time2);
+        System.out.println("Resulting Time Universal: " + result.toUniversalString());
+        System.out.println("Resulting Time Standard: " + result.toStandardString());
+    }
+}
