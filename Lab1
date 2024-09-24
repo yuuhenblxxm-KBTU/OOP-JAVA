@@ -45,7 +45,6 @@ class Analyzer {
             System.out.print("Enter number (Q to quit): ");
             input = scanner.nextLine();
 
-             Check if the user entered "Q" to quit
             if (input.equalsIgnoreCase("Q")) {
                 break;
             }
