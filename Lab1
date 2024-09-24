@@ -1,0 +1,522 @@
+PROBLEM 1:
+import java.util.Scanner;
+
+class Data {
+    private double sum;
+    private double max;
+    private int count;
+
+    public Data() {
+        sum = 0;
+        max = Double.NEGATIVE_INFINITY; 
+        count = 0;
+    }
+
+    public void addValue(double value) {
+        sum += value;
+        if (value > max) {
+            max = value;
+        }
+        count++;
+    }
+
+    public double getAverage() {
+        if (count == 0) {
+            return 0.0; 
+
+        return sum / count;
+    }
+
+    public double getMax() {
+        if (count == 0) {
+            return 0.0; 
+        }
+        return max;
+    }
+}
+
+class Analyzer {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Data data = new Data();
+        String input;
+
+        while (true) {
+            System.out.print("Enter number (Q to quit): ");
+            input = scanner.nextLine();
+
+             Check if the user entered "Q" to quit
+            if (input.equalsIgnoreCase("Q")) {
+                break;
+            }
+
+            try {
+                double value = Double.parseDouble(input);
+                data.addValue(value);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number or 'Q' to quit.");
+            }
+        }
+
+        System.out.println("Average = " + data.getAverage());
+        System.out.println("Maximum = " + data.getMax());
+    }
+}
+
+PROBLEM 2:
+enum LaptopType {
+    GAMING, WORKSTATION, ULTRABOOK
+}
+
+class Laptop {
+
+    private static int laptopsProduced = 0;
+
+    private final String serialNumber;
+
+    private int ramSize;
+
+    private static final int MAX_RAM_SIZE = 64;
+
+    private final LaptopType laptopType;
+
+    private final String brand;
+
+    public Laptop(String serialNumber, LaptopType laptopType, String brand) {
+        this.serialNumber = serialNumber; 
+        this.laptopType = laptopType;     
+        this.brand = brand;               
+        laptopsProduced++;               
+    }
+
+    static {
+        System.out.println("Laptop class loaded. Ready to produce laptops.");
+    }
+
+    {
+        this.ramSize = 8; 
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public LaptopType getLaptopType() {
+        return laptopType;
+    }
+
+    public static int getLaptopsProduced() {
+        return laptopsProduced;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setRamSize(int ramSize) {
+        if (ramSize <= MAX_RAM_SIZE) {
+            this.ramSize = ramSize;
+        } else {
+            System.out.println("RAM size exceeds the maximum limit.");
+        }
+    }
+
+    public void setRamSize(double ramSize) {
+        setRamSize((int) ramSize); 
+    }
+
+    public void displayInfo() {
+        System.out.println("Brand: " + brand);
+        System.out.println("Laptop Type: " + laptopType);
+        System.out.println("Serial Number: " + serialNumber);
+        System.out.println("Current RAM Size: " + ramSize + "GB");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Laptop laptop1 = new Laptop("ABC12345", LaptopType.GAMING, "Dell");
+        laptop1.setRamSize(32);  
+        laptop1.setRamSize(32.5); 
+        laptop1.displayInfo();
+
+        Laptop laptop2 = new Laptop("XYZ98765", LaptopType.WORKSTATION, "HP");
+        laptop2.setRamSize(16);
+        laptop2.displayInfo();
+
+        System.out.println("Total laptops produced: " + Laptop.getLaptopsProduced());
+    }
+}
+
+PROBLEM 3:
+public class Temperature {
+
+    private double temperature;
+    private char scale;
+
+    public Temperature() {
+        this.temperature = 0.0;
+        this.scale = 'C';
+    }
+
+    public Temperature(double temperature) {
+        this.temperature = temperature;
+        this.scale = 'C';
+    }
+
+    public Temperature(char scale) {
+        this.temperature = 0.0;
+        this.scale = scale == 'F' ? 'F' : 'C'; 
+    }
+
+    public Temperature(double temperature, char scale) {
+        this.temperature = temperature;
+        this.scale = scale == 'F' ? 'F' : 'C'; 
+    }
+
+    public double getTemperatureInCelsius() {
+        if (scale == 'C') {
+            return temperature; 
+        } else {
+            return (temperature - 32) * 5 / 9;
+        }
+    }
+
+    public double getTemperatureInFahrenheit() {
+        if (scale == 'F') {
+            return temperature; 
+        } else {
+            return (temperature * 9 / 5) + 32; 
+        }
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setScale(char scale) {
+        this.scale = scale == 'F' ? 'F' : 'C';  
+    }
+
+    public void setTemperatureAndScale(double temperature, char scale) {
+        this.temperature = temperature;
+        this.scale = scale == 'F' ? 'F' : 'C';  
+    }
+
+    public char getScale() {
+        return scale;
+    }
+
+    public static void main(String[] args) {
+        Temperature temp1 = new Temperature();
+        System.out.println("Temp1 in Celsius: " + temp1.getTemperatureInCelsius());
+        System.out.println("Temp1 in Fahrenheit: " + temp1.getTemperatureInFahrenheit());
+
+        Temperature temp2 = new Temperature(100.0);
+        System.out.println("Temp2 in Celsius: " + temp2.getTemperatureInCelsius());
+        System.out.println("Temp2 in Fahrenheit: " + temp2.getTemperatureInFahrenheit());
+
+        Temperature temp3 = new Temperature('F');
+        System.out.println("Temp3 in Celsius: " + temp3.getTemperatureInCelsius());
+        System.out.println("Temp3 in Fahrenheit: " + temp3.getTemperatureInFahrenheit());
+
+        Temperature temp4 = new Temperature(32.0, 'F');
+        System.out.println("Temp4 in Celsius: " + temp4.getTemperatureInCelsius());
+        System.out.println("Temp4 in Fahrenheit: " + temp4.getTemperatureInFahrenheit());
+
+        temp1.setTemperature(37.5);
+        temp1.setScale('C');
+        System.out.println("Temp1 updated in Celsius: " + temp1.getTemperatureInCelsius());
+        System.out.println("Temp1 updated in Fahrenheit: " + temp1.getTemperatureInFahrenheit());
+
+        temp1.setTemperatureAndScale(212.0, 'F');
+        System.out.println("Temp1 updated again in Celsius: " + temp1.getTemperatureInCelsius());
+        System.out.println("Temp1 updated again in Fahrenheit: " + temp1.getTemperatureInFahrenheit());
+    }
+}
+
+PROBLEM 4:
+package student;
+
+public class Student {
+    private String name;
+    private String id;
+    private int yearOfStudy;
+
+    public Student(String name, String id) {
+        this.name = name;
+        this.id = id;
+        this.yearOfStudy = 1; 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getYearOfStudy() {
+        return yearOfStudy;
+    }
+
+    public void incrementYearOfStudy() {
+        yearOfStudy++;
+    }
+
+    @Override
+    public String toString() {
+        return "Student Name: " + name + ", ID: " + id + ", Year of Study: " + yearOfStudy;
+    }
+}
+
+package gradebook;
+
+public class Course {
+    private String name;
+    private String description;
+    private int credits;
+
+    public Course(String name, String description, int credits) {
+        this.name = name;
+        this.description = description;
+        this.credits = credits;
+    }
+
+    @Override
+    public String toString() {
+        return "Course Name: " + name + ", Description: " + description + ", Credits: " + credits;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+}
+
+package gradebook;
+
+import student.Student;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class GradeBook {
+    private Course course;
+    private ArrayList<Student> students;
+    private HashMap<Student, Integer> grades;
+
+    public GradeBook(Course course) {
+        this.course = course;
+        this.students = new ArrayList<>();
+        this.grades = new HashMap<>();
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public void inputGrades() {
+        Scanner scanner = new Scanner(System.in);
+        for (Student student : students) {
+            System.out.print("Enter grade for " + student.getName() + ": ");
+            int grade = scanner.nextInt();
+            grades.put(student, grade);
+        }
+    }
+
+    public void displayGradeReport() {
+        System.out.println("Class average is: " + determineClassAverage());
+        System.out.println("Lowest grade is: " + determineLowestGrade());
+        System.out.println("Highest grade is: " + determineHighestGrade());
+        outputBarChart();
+    }
+
+    private double determineClassAverage() {
+        double total = 0;
+        for (int grade : grades.values()) {
+            total += grade;
+        }
+        return total / grades.size();
+    }
+
+    private String determineLowestGrade() {
+        int lowest = Integer.MAX_VALUE;
+        Student lowestStudent = null;
+        for (Student student : grades.keySet()) {
+            int grade = grades.get(student);
+            if (grade < lowest) {
+                lowest = grade;
+                lowestStudent = student;
+            }
+        }
+        return lowest + " (" + lowestStudent.getName() + ", ID: " + lowestStudent.getId() + ")";
+    }
+
+    private String determineHighestGrade() {
+        int highest = Integer.MIN_VALUE;
+        Student highestStudent = null;
+        for (Student student : grades.keySet()) {
+            int grade = grades.get(student);
+            if (grade > highest) {
+                highest = grade;
+                highestStudent = student;
+            }
+        }
+        return highest + " (" + highestStudent.getName() + ", ID: " + highestStudent.getId() + ")";
+    }
+
+    private void outputBarChart() {
+        int[] distribution = new int[11];
+        for (int grade : grades.values()) {
+            if (grade >= 0 && grade <= 100) {
+                distribution[grade / 10]++;
+            }
+        }
+        System.out.println("Grades distribution:");
+        for (int i = 0; i < distribution.length; i++) {
+            System.out.printf("%02d-%02d: ", i * 10, (i * 10 + 9));
+            for (int j = 0; j < distribution[i]; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+
+package gradebook;
+
+import student.Student;
+import java.util.Scanner;
+
+public class GradeBookTest {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        Course course = new Course("CS101", "OOP and Design", 3);
+        GradeBook gradeBook = new GradeBook(course);
+        
+        System.out.println("Please enter the number of students:");
+        int numStudents = scanner.nextInt();
+        scanner.nextLine(); 
+        
+        for (int i = 0; i < numStudents; i++) {
+            System.out.println("Enter student name:");
+            String name = scanner.nextLine();
+            System.out.println("Enter student ID:");
+            String id = scanner.nextLine();
+            Student student = new Student(name, id);
+            gradeBook.addStudent(student);
+        }
+
+        gradeBook.inputGrades();
+
+        gradeBook.displayGradeReport();
+    }
+}
+
+Problem 5:
+package dragonlaunch;
+
+public enum Gender {
+    BOY,
+    GIRL
+}
+
+package dragonlaunch;
+
+public class Person {
+    private Gender gender;
+
+    public Person(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    @Override
+    public String toString() {
+        return gender == Gender.BOY ? "B" : "G";
+    }
+}
+
+
+package dragonlaunch;
+
+import java.util.Vector;
+
+public class DragonLaunch {
+    private Vector<Person> prisoners;
+
+    public DragonLaunch() {
+        prisoners = new Vector<>();
+    }
+
+    public void kidnap(Person p) {
+        prisoners.add(p);
+    }
+
+    public boolean willDragonEatOrNot() {
+        int i = 0;
+        while (i < prisoners.size() - 1) {
+            if (prisoners.get(i).getGender() == Gender.BOY && prisoners.get(i + 1).getGender() == Gender.GIRL) {
+                prisoners.remove(i); 
+                prisoners.remove(i); 
+                i = (i > 0) ? i - 1 : 0; 
+            } else {
+                i++;
+            }
+        }
+        return prisoners.size() > 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (Person p : prisoners) {
+            result.append(p.toString());
+        }
+        return result.toString();
+    }
+}
+
+package dragonlaunch;
+
+import java.util.Scanner;
+
+public class DragonLaunchTest {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        DragonLaunch launch = new DragonLaunch();
+
+        System.out.println("Enter the sequence of students (e.g., BGBG or BBGG):");
+        String input = scanner.nextLine();
+
+        for (char ch : input.toCharArray()) {
+            if (ch == 'B') {
+                launch.kidnap(new Person(Gender.BOY));
+            } else if (ch == 'G') {
+                launch.kidnap(new Person(Gender.GIRL));
+            }
+        }
+
+        System.out.println("Initial lineup: " + launch);
+        if (launch.willDragonEatOrNot()) {
+            System.out.println("The dragon will eat!");
+        } else {
+            System.out.println("No one is left for the dragon's lunch!");
+        }
+
+        scanner.close();
+    }
+}
