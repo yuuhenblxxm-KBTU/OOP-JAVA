@@ -1,0 +1,234 @@
+Problem 1.
+class Animal {
+    String species;
+    int weight;
+
+    public Animal(String species, int weight) {
+        this.species = species;
+        this.weight = weight;
+    }
+
+    public void displayDetails() {
+        System.out.println("Species: " + species);
+        System.out.println("Weight: " + weight + " kg");
+    }
+
+    public void move() {
+        System.out.println("The animal is moving.");
+    }
+
+    public void move(String type) {
+        System.out.println("The animal moves by: " + type);
+    }
+}
+
+class Bird extends Animal {
+    String wingSpan; 
+
+    public Bird(String species, int weight, String wingSpan) {
+        super(species, weight);
+        this.wingSpan = wingSpan;
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("Bird Species: " + species);
+        System.out.println("Bird Weight: " + weight + " kg");
+        System.out.println("Bird Wing Span: " + wingSpan);
+    }
+
+    public void move(int speed) {
+        System.out.println("The bird flies at a speed of " + speed + " km/h.");
+    }
+}
+
+package practice3;
+
+public class Main {
+    public static void main(String[] args) {
+        Bird bird = new Bird("Eagle", 6, "2 meters");
+
+        bird.displayDetails();
+
+        bird.move(); 
+        bird.move("flying"); 
+        bird.move(80);
+    }
+}
+
+Problem 2.
+package practice32problem;
+
+public class Person {
+    private String name;
+    private String address;
+
+    public Person(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Person[name=" + name + ", address=" + address + "]";
+    }
+}
+
+package practice32problem;
+
+public class Staff extends Person {
+    private String school;
+    private double pay;
+
+    public Staff(String name, String address, String school, double pay) {
+        super(name, address);
+        this.school = school;
+        this.pay = pay;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public double getPay() {
+        return pay;
+    }
+
+    public void setPay(double pay) {
+        this.pay = pay;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff[" + super.toString() + ", school=" + school + ", pay=" + pay + "]";
+    }
+}
+
+package practice32problem;
+
+public class Student extends Person {
+    private String program;
+    private int year;
+    private double fee;
+
+    public Student(String name, String address, String program, int year, double fee) {
+        super(name, address);
+        this.program = program;
+        this.year = year;
+        this.fee = fee;
+    }
+
+    public String getProgram() {
+        return program;
+    }
+
+    public void setProgram(String program) {
+        this.program = program;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public double getFee() {
+        return fee;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
+    }
+
+    @Override
+    public String toString() {
+        return "Student[" + super.toString() + ", program=" + program + ", year=" + year + ", fee=" + fee + "]";
+    }
+}
+
+package practice32problem;
+
+import java.util.Scanner;
+import java.util.Vector;
+
+public class Test {
+    public static void main(String[] args) {
+        Vector<Person> persons = new Vector<>();
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("1. Add a new person");
+            System.out.println("2. Print all persons");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();  
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter person type (1=Person, 2=Student, 3=Staff): ");
+                    int type = scanner.nextInt();
+                    scanner.nextLine();  
+
+                    System.out.print("Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Address: ");
+                    String address = scanner.nextLine();
+
+                    if (type == 1) {
+                        persons.add(new Person(name, address));
+                    } else if (type == 2) {
+                        System.out.print("Program: ");
+                        String program = scanner.nextLine();
+                        System.out.print("Year: ");
+                        int year = scanner.nextInt();
+                        System.out.print("Fee: ");
+                        double fee = scanner.nextDouble();
+                        persons.add(new Student(name, address, program, year, fee));
+                    } else if (type == 3) {
+                        System.out.print("School: ");
+                        String school = scanner.nextLine();
+                        System.out.print("Pay: ");
+                        double pay = scanner.nextDouble();
+                        persons.add(new Staff(name, address, school, pay));
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("All persons:");
+                    for (Person person : persons) {
+                        System.out.println(person.toString());
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
+        } while (choice != 3);
+
+        scanner.close();
+    }
+}
