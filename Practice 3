@@ -176,8 +176,8 @@ public class Test {
         int choice;
 
         do {
-            System.out.println("1. Add a new person");
-            System.out.println("2. Print all persons");
+            System.out.println("1. Add a new user");
+            System.out.println("2. Print all users");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
