@@ -1,0 +1,139 @@
+Example1
+package practice5;
+
+public class Example1
+{
+    public static void main(String[] args)
+    {
+        int denominator, numerator, ratio;
+
+        numerator   = 5;
+        denominator = 0;
+
+        try {
+            ratio = numerator / denominator;
+            System.out.println("Done.");
+        } catch (ArithmeticException e) {
+        	e.printStackTrace();
+        	System.out.println("Divide by 0.");
+        }
+    }
+}
+
+-------------------------
+Example2
+package practice5;
+
+public class Example2
+{
+    public static void main(String[] args)
+    {
+        int i;
+        int ratio;
+        int[] numbers = {100, 10, 0, 5, 2, 8, 0, 30};
+
+        for (i = 0; i < numbers.length - 1; i++)
+        {
+            try
+            {
+                ratio = numbers[i] / numbers[i + 1];
+                System.out.println(numbers[i] + "/" + numbers[i + 1] + "=" + ratio);
+            } 
+            catch (ArithmeticException ae)
+            {
+                System.out.println("Couldn't calculate " +
+                                   numbers[i] + "/" + numbers[i + 1] + " due to division by zero.");
+            }
+        }
+    }
+}
+-------------------------
+Example3
+package practice5;
+
+public class Example3
+{
+    public static void main(String[] args)
+    {
+        int i;
+        int[] data = {50, 320, 97, 12, 2000};
+
+        for (i = 0; i < data.length; i++)
+        {
+            System.out.println(data[i]);
+        }
+
+        System.out.println("Done");
+    }
+}
+---------------------------
+Example4
+package practice5;
+
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Example4 {
+    public static void main(String[] args) {
+        double leftOperand, result, rightOperand;
+        String leftString, operator, rightString;
+        StringTokenizer tokenizer;
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter expressions to evaluate (type 'exit' to quit):");
+
+        while (true) {
+            String input = in.nextLine();
+
+            if (input.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            tokenizer = new StringTokenizer(input, "+-*/", true);
+
+            try {
+                leftString = tokenizer.nextToken().trim();
+                operator = tokenizer.nextToken().trim();
+                rightString = tokenizer.nextToken().trim();
+
+                leftOperand = Double.parseDouble(leftString);
+                rightOperand = Double.parseDouble(rightString);
+
+                switch (operator) {
+                    case "+":
+                        result = leftOperand + rightOperand;
+                        break;
+                    case "-":
+                        result = leftOperand - rightOperand;
+                        break;
+                    case "*":
+                        result = leftOperand * rightOperand;
+                        break;
+                    case "/":
+                        if (rightOperand == 0) {
+                            throw new ArithmeticException("Division by zero");
+                        }
+                        result = leftOperand / rightOperand;
+                        break;
+                    default:
+                        result = 0.0;
+                        System.out.println("Invalid operator");
+                        continue; 
+                }
+
+                System.out.println("Result: " + result);
+            } catch (NoSuchElementException nsee) {
+                System.out.println("Invalid syntax");
+            } catch (NumberFormatException nfe) {
+                System.out.println("One or more operands is not a number");
+            } catch (ArithmeticException ae) {
+                System.out.println("Error: " + ae.getMessage());
+            }
+        }
+
+        System.out.println("Program terminated.");
+        in.close();
+    }
+}
+-----------------------
